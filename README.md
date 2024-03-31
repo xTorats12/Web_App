@@ -32,3 +32,6 @@ cd your_repository
 
 Install the required libraries using pip by executing the following command:
 pip install -r requirements.txt
+
+To access the finished product here's the URL: https://web-app-kq3i.onrender.com
+
