@@ -1,33 +1,39 @@
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-def main():
-    # Read the dataset's CSV file into a Pandas DataFrame
-    df = pd.read_csv('/Users/rafaelhernadez/Documents/PythonProject/Web_app/vehicles_us.csv')
+# Read the dataset's CSV file into a Pandas DataFrame
+df = pd.read_csv('/Users/rafaelhernadez/Documents/PythonProject/Web_app/vehicles_us.csv') 
 
-    # Header with text
+# Function to display a Plotly Express histogram based on the selected column
+def display_histogram(selected_column):
+    fig = px.histogram(df, x=selected_column, title=f'Distribution of {selected_column.capitalize()}')
+    st.plotly_chart(fig)
+
+# Function to display a Plotly Express scatter plot based on the selected columns
+def display_scatterplot(x_column, y_column):
+    fig = px.scatter(df, x=x_column, y=y_column, title=f'Scatter Plot: {x_column.capitalize()} vs {y_column.capitalize()}')
+    st.plotly_chart(fig)
+
+# Main function
+def main():
     st.header('Exploratory Data Analysis')
 
-    # Plotly Express histogram using st.plotly_chart
-    histogram_data = px.histogram(df, x='column_name')
-    st.plotly_chart(histogram_data)
+    # Checkbox to toggle the display of histograms
+    show_histograms = st.checkbox('Show Histograms')
 
-    # Plotly Express scatter plot using st.plotly_chart
-    scatter_data = px.scatter(df, x='column1', y='column2')
-    st.plotly_chart(scatter_data)
+    if show_histograms:
+        selected_column = st.selectbox('Select a column for histogram:', df.columns)
+        display_histogram(selected_column)
 
-    # Checkbox to toggle the display of the plots
-    show_plots = st.checkbox('Show Plots')
+    # Checkbox to toggle the display of scatter plots
+    show_scatterplots = st.checkbox('Show Scatter Plots')
 
-    # Conditional display based on the checkbox value
-    if show_plots:
-        st.header('Plots')
-        st.write('Histogram:')
-        st.plotly_chart(histogram_data)
-
-        st.write('Scatter Plot:')
-        st.plotly_chart(scatter_data)
+    if show_scatterplots:
+        x_column = st.selectbox('Select X-axis column:', df.columns)
+        y_column = st.selectbox('Select Y-axis column:', df.columns)
+        display_scatterplot(x_column, y_column)
 
 if __name__ == '__main__':
     main()
