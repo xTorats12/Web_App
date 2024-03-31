@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 
 # Read the dataset's CSV file into a Pandas DataFrame
-df = pd.read_csv('/Users/rafaelhernadez/Documents/PythonProject/Web_app/vehicles_us.csv') 
+df = pd.read_csv('vehicles_us.csv') 
 
 # Function to display a Plotly Express histogram based on the selected column
 def display_histogram(selected_column):
